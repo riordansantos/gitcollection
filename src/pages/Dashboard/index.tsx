@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import { Title, Form, Repos, Error } from "./styles";
 import logo from "../../assets/logo.svg";
 import { FiChevronRight } from "react-icons/fi";
@@ -60,9 +61,9 @@ export function Dashboard() {
       </Form>
       {inputError && <Error>{inputError}</Error>}
       <Repos>
-        {repos.map((repository) => {
-          return (
-            <a href="/repositories" key={repository.full_name}>
+        {repos.map((repository) => (
+       
+            <Link to={`/repositories/${repository.full_name}`} key={repository.full_name}>
               <img
                 src={repository.owner.avatar_url}
                 alt={repository.owner.login}
@@ -72,9 +73,9 @@ export function Dashboard() {
                 <p>{repository.description}</p>
               </div>
               <FiChevronRight size={30} />
-            </a>
-          );
-        })}
+            </Link>
+         
+        ))}
       </Repos>
     </>
   );

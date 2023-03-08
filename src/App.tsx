@@ -6,7 +6,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes />
+        <React.StrictMode>
+          <Routes />
+        </React.StrictMode>
       </BrowserRouter>
       <GlobalStyle />
     </>
