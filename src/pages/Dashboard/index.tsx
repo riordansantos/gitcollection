@@ -14,10 +14,19 @@ interface GithubRepository {
 }
 
 export function Dashboard() {
-  const [repos, setRepos] = React.useState<GithubRepository[]>([]);
+  const [repos, setRepos] = React.useState<GithubRepository[]>(() => {
+    const storageRepos = localStorage.getItem("@gitCollection:repositories");
+    if (storageRepos) {
+      return JSON.parse(storageRepos);
+    }
+    return [];
+  });
   const [newRepo, setNewRepo] = React.useState("");
-  const [inputError, setInputError] = React.useState('');
+  const [inputError, setInputError] = React.useState("");
 
+  React.useEffect(() => {
+    localStorage.setItem("@gitCollection:repositories", JSON.stringify(repos));
+  }, [repos]);
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setNewRepo(event.target.value);
   }
@@ -25,8 +34,8 @@ export function Dashboard() {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    if(!newRepo){
-      setInputError('Informe o username/repositorio');
+    if (!newRepo) {
+      setInputError("Informe o username/repositorio");
       return;
     }
     try {
@@ -35,8 +44,7 @@ export function Dashboard() {
       setRepos([...repos, repository]);
       setNewRepo("");
     } catch (e) {
-      setInputError('Informe um username/repositorio válido');
-      
+      setInputError("Informe um username/repositorio válido");
     }
   }
   return (
