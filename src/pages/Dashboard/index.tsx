@@ -65,9 +65,9 @@ export function Dashboard() {
       </Form>
       {inputError && <Error>{inputError}</Error>}
       <Repos>
-        {repos.map((repository) => (
+        {repos.map((repository, index) => (
        
-            <Link to={`/repositories/${repository.full_name}`} key={repository.full_name}>
+            <Link to={`/repositories/${repository.full_name}`} key={repository.full_name + index}>
               <img
                 src={repository.owner.avatar_url}
                 alt={repository.owner.login}
