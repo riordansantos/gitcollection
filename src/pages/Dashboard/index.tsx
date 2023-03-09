@@ -14,7 +14,7 @@ interface GithubRepository {
   };
 }
 
-export function Dashboard() {
+function Dashboard() {
   const [repos, setRepos] = React.useState<GithubRepository[]>(() => {
     const storageRepos = localStorage.getItem("@gitCollection:repositories");
     if (storageRepos) {
@@ -84,3 +84,4 @@ export function Dashboard() {
     </>
   );
 }
+ export default Dashboard;
