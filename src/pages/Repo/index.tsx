@@ -19,18 +19,20 @@ interface GithubRepository {
   };
 }
 
-interface GithubIssue{
+interface GithubIssue {
   id: number;
   title: string;
   html_url: string;
   user: {
     login: string;
-  }
+  };
 }
 
 function Repo() {
   const { params } = useRouteMatch<RepositoryParams>();
-  const [repository, setRepository] = React.useState<GithubRepository | null>(null);
+  const [repository, setRepository] = React.useState<GithubRepository | null>(
+    null
+  );
   const [issues, setIssues] = React.useState<GithubIssue[]>([]);
   React.useEffect(() => {
     api.get(`repos/${params.repository}`).then((response) => {
@@ -44,54 +46,60 @@ function Repo() {
   return (
     <>
       <Header>
-        <img src={logo} alt="GitCollection" />
-        <Link to="/">
-          <FiChevronLeft size={20} />
-          Voltar
-        </Link>
+        <div>
+          <img src={logo} alt="GitCollection" />
+        </div>
+        <div>
+          <Link to="/">
+            <FiChevronLeft size={20} />
+            Voltar
+          </Link>
+        </div>
       </Header>
-    {repository && (
+      {repository && (
         <RepoInfo>
-        <header>
-          <img src={repository.owner.avatar_url} alt={repository.owner.login} />
-          <div>
-            <strong>{repository.full_name}</strong>
-            <p>{repository.description}</p>
-          </div>
-        </header>
-        <ul>
-          <li>
-            <strong>{repository.stargazers_count}</strong>
-            <span>Stars</span>
-          </li>
-          <li>
-            <strong>{repository.forks_count}</strong>
-            <span>Forks</span>
-          </li>
-          <li>
-            <strong>{repository.open_issues_count}</strong>
-            <span>Issues abertas</span>
-          </li>
-        </ul>
-      </RepoInfo>
-    )}
-     
-       <Issues>
-        {issues.map(issue => {
-          return(
-            <a href={issue.html_url} target="_blank" rel="noreferrer">
-            <div>
-              <strong>{issue.title}</strong>
-              <p>{issue.user.login}</p>
+          <header>
+            <div className="image">
+              <img
+                src={repository.owner.avatar_url}
+                alt={repository.owner.login}
+              />
             </div>
-            <FiChevronRight size={20} />
-          </a>
-          )
+            <div className="title">
+              <strong>{repository.full_name}</strong>
+              <p>{repository.description}</p>
+            </div>
+          </header>
+          <ul>
+            <li>
+              <strong>{repository.stargazers_count}</strong>
+              <span>Stars</span>
+            </li>
+            <li>
+              <strong>{repository.forks_count}</strong>
+              <span>Forks</span>
+            </li>
+            <li>
+              <strong>{repository.open_issues_count}</strong>
+              <span>Issues abertas</span>
+            </li>
+          </ul>
+        </RepoInfo>
+      )}
 
+      <Issues>
+        {issues.map((issue) => {
+          return (
+            <a href={issue.html_url} target="_blank" rel="noreferrer">
+              <div>
+                <strong>{issue.title}</strong>
+                <p>{issue.user.login}</p>
+              </div>
+              <FiChevronRight size={20} />
+            </a>
+          );
         })}
-     
-     </Issues>
-   
+      </Issues>
     </>
   );
 }

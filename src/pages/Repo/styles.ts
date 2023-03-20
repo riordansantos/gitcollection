@@ -18,6 +18,9 @@ export const Header = styled.header`
     svg {
       margin-right: 4px;
     }
+    @media (max-width: 720px) {
+      flex-direction: column-reverse;
+    }
   }
 `;
 
@@ -31,7 +34,7 @@ export const RepoInfo = styled.section`
       height: 120px;
       border-radius: 50%;
     }
-    div {
+    .title {
       margin-left: 1.7rem;
       strong {
         font-size: 36px;
@@ -42,6 +45,20 @@ export const RepoInfo = styled.section`
         color: #737380;
       }
     }
+    @media (max-width: 720px) {
+      flex-direction: column;
+      align-items: center;
+      img {
+        margin-bottom: 1rem;
+      }
+      .title {
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
   }
   ul {
     display: flex;
@@ -50,6 +67,10 @@ export const RepoInfo = styled.section`
     li {
       & + li {
         margin-left: 4.5rem;
+        @media (max-width: 720px) {
+          margin-left: 0;
+          
+        }
       }
       strong {
         display: block;
@@ -61,6 +82,11 @@ export const RepoInfo = styled.section`
         margin-top: 4px;
         color: #737380;
       }
+    }
+    @media (max-width: 720px) {
+      flex-direction: column;
+      text-align: center;
+      row-gap: 1rem;
     }
   }
 `;
